@@ -86,11 +86,9 @@ class CleaningPump(ArduinoController):
 
         self._set_voltage(speed or self._default_speed)
         self._cycle_pump()
-        self._logger.info(f"Pump has started at {speed}")
 
     def stop(self):
         self._stop_pump()
-        self._logger.info("Pump has stopped")
 
     def is_busy(self) -> bool:
         return self._is_busy()
