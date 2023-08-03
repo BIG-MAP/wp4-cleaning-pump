@@ -31,3 +31,7 @@ class CleaningPump(ArduinoController):
 
     def is_busy(self) -> bool:
         return self._is_busy()
+
+    def close(self):
+        self.stop()
+        self._close()

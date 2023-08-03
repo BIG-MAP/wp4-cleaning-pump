@@ -1,8 +1,7 @@
-import PyCmdMessenger
-
-
 import logging
 import time
+
+import PyCmdMessenger
 
 
 class ArduinoController:
@@ -10,7 +9,7 @@ class ArduinoController:
         self._busy = False
         self._logger = logging.getLogger(__class__.__name__)
 
-        _arduino = PyCmdMessenger.ArduinoBoard(port, baud_rate=115200, timeout=10)
+        self._arduino = PyCmdMessenger.ArduinoBoard(port, baud_rate=115200, timeout=10)
         # List of command names (and formats for their associated arguments).
         # These must be in the same order as in the sketch.
         commands = [
@@ -22,7 +21,7 @@ class ArduinoController:
             ["kCyclePump", ""],
         ]
         # Initialize the messenger
-        self._messenger = PyCmdMessenger.CmdMessenger(_arduino, commands)
+        self._messenger = PyCmdMessenger.CmdMessenger(self._arduino, commands)
 
         # Wait for arduino to come up
         response = self._messenger.receive()
@@ -62,3 +61,6 @@ class ArduinoController:
 
     def _is_busy(self) -> bool:
         return self._busy
+
+    def _close(self):
+        self._arduino.close()
