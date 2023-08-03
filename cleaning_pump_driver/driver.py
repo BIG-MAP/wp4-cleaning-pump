@@ -29,7 +29,7 @@ class ArduinoController:
 
         # Wait for arduino to come up
         response = self._messenger.receive()
-        logging.info(f"Arduino says: {response}")
+        self._logger.info(f"Arduino initialization: {response}")
 
     def _set_voltage(self, voltage: int):
         """
@@ -39,13 +39,13 @@ class ArduinoController:
         self._messenger.send("kSetVoltage", voltage)
 
         response = self._messenger.receive()
-        logging.info(response[1])
+        self._logger.info(f"kSetVoltage: {response[1]}")
 
     def _stop_pump(self):
         self._messenger.send("kStopPump")
 
         response = self._messenger.receive()
-        logging.info(response[1])
+        self._logger.info(f"kStopPump: {response[1]}")
 
         self._busy = False
 
@@ -57,7 +57,7 @@ class ArduinoController:
         self._messenger.send("kCyclePump")
 
         response = self._messenger.receive()
-        logging.info(response[1])
+        self._logger.info(f"kCyclePump: {response[1]}")
 
         time.sleep(0.4)
 

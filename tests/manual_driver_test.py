@@ -1,4 +1,5 @@
 import os
+import time
 
 from cleaning_pump_driver.driver import CleaningPump
 
@@ -11,6 +12,8 @@ print(f"Pump busy: {pump.is_busy()}")
 pump.start()
 
 print(f"Pump busy: {pump.is_busy()}")
+
+time.sleep(5)
 
 pump.stop()
 
